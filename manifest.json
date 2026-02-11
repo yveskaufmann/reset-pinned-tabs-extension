@@ -5,6 +5,7 @@
   "version": "1.0",
   "permissions": ["tabs", "menus", "sessions", "storage"],
   "background": {
+    "scripts": ["src/background.js"],
     "service_worker": "src/background.js"
   },
   "author": "Yves Kaufmann",

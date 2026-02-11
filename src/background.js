@@ -1,6 +1,10 @@
 
 const ORG_URL_KEY = "originalUrl";
 
+// Polyfill for cross-browser compatibility, since Firefox uses the `browser` namespace while Chrome uses `chrome`.
+if (typeof browser === "undefined") {
+  globalThis.browser = chrome;
+}
 
 /**
  * Handle the tab updates to intercept when a user pins or unpins a tab.
