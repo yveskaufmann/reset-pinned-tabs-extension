@@ -2,3 +2,4 @@ profiles
 node_modules
 *.zip
 *.xpi
+dist

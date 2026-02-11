@@ -2,7 +2,8 @@
 
 .PHONY: bundle
 bundle:
-	zip -r reset-pinned-tabs-extension.xpi manifest.json icons/ src/ README.md LICENSE
+	@mkdir -p dist
+	zip -r dist/reset-pinned-tabs-extension.xpi manifest.json icons/*.png src/ README.md LICENSE
 
 .PHONY: lint
 lint:
