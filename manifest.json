@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Pinned Tab Resetter",
+  "description": "Reset pinned tabs to their original URLs. Features: automatic restore on startup; context‑menu reset; per‑tab storage sync. Inspired by Zen Browser's pinned‑tab shortcuts.",
+  "version": "1.0",
+  "permissions": ["tabs", "menus", "sessions", "storage"],
+  "background": {
+    "scripts": ["src/background.js"]
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "256": "icons/icon256.png",
+    "512": "icons/icon512.png"
+  },
+
+  "action": {
+    "default_title": "Pinned Tab Resetter"
+  },
+
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pinned-resetter@yv35.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}
