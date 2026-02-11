@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Pinned Tab Resetter",
   "description": "Small open-source WebExtension for Firefox that restores pinned tabs to their initial URLs on startup.",
-  "version": "1.0",
+  "version": "1.0.0",
   "permissions": ["tabs", "menus", "sessions", "storage"],
   "background": {
     "scripts": ["src/background.js"],
