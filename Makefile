@@ -20,3 +20,7 @@ watch:
  		--keep-profile-changes --profile-create-if-missing --firefox-profile $(shell pwd)/profiles/web-ext-dev \
 		--devtools --no-reload \
 		--watch-ignored "**/node_modules/**,profiles/**,**/scripts/**"
+
+.PHONY: icons
+icons:
+	scripts/export-icons.sh
