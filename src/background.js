@@ -85,7 +85,7 @@ function createContextMenu() {
   browser.menus.create({
     id: "reset-all-pinned",
     title: "Reset All Pinned Tabs",
-    contexts: ["tab", "action"],
+    contexts: ["tab"],
   });
 
   browser.menus.create({
