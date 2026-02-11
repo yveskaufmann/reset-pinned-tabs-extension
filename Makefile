@@ -7,7 +7,7 @@ bundle:
 
 .PHONY: lint
 lint:
-	npx web-ext lint  --ignore-files scripts/**,profiles/**
+	npx web-ext lint --ignore-files scripts/** profiles/**
 
 .PHONY: watch
 watch:
