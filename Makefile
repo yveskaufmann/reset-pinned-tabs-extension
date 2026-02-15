@@ -9,15 +9,20 @@ bundle:
 lint:
 	npx web-ext lint --ignore-files scripts/** profiles/**
 
+FIREFOX_PATH := /opt/firefox/firefox
+ifeq ($(shell uname -s),Darwin)
+FIREFOX_PATH := /Applications/Firefox\ Developer\ Edition.app/Contents/MacOS/firefox
+endif
+
 .PHONY: watch
 watch:
-	@if [ ! -d /opt/firefox ]; then \
-		echo "Firefox Developer Edition not found in /opt/firefox. Please install Firefox there to use this target."; \
+	@if [ ! -f $(FIREFOX_PATH) ]; then \
+		echo "Firefox Developer Edition not found in $(FIREFOX_PATH). Please install Firefox there to use this target."; \
 		exit 1; \
 	fi; \
 	mkdir -p profiles/web-ext-dev; \
 	npx web-ext run \
-		--firefox=/opt/firefox/firefox \
+		--firefox=$(FIREFOX_PATH) \
  		--keep-profile-changes --profile-create-if-missing --firefox-profile $(shell pwd)/profiles/web-ext-dev \
 		--devtools --no-reload \
 		--watch-ignored "**/node_modules/**,profiles/**,**/scripts/**"
