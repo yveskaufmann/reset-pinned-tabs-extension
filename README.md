@@ -3,6 +3,12 @@
 Restore pinned tabs to their initially opened URLs on browser startup or
 on demand via the context menu.
 
+## Installation
+
+[![Firefox Add-on](https://img.shields.io/badge/Firefox-Add--on-orange)](https://addons.mozilla.org/de/firefox/addon/pinned-tab-resetter/)
+
+Download and install the extension from the [Mozilla Add-ons page](https://addons.mozilla.org/de/firefox/addon/pinned-tab-resetter/).
+
 ## Usage
 
 Install the extension (see below) and pin some tabs. The extension will automatically restore their original URLs on browser startup. You can also reset individual pinned tabs by selecting “Reset Pinned Tab” from the tab's context menu, or reset all pinned tabs at once via the “Reset All Pinned Tabs” option.
