@@ -48,6 +48,9 @@ async function onMenuShown(info, tab) {
     await browser.menus.update('reset-this-tab', {
       enabled: tab.pinned && !!originalUrl && tab.url !== originalUrl,
     });
+    await browser.menus.update('repin-tab', {
+      visible: tab.pinned,
+    });
   } catch (err) {
     console.error('Error updating menu state:', err);
   } finally {
@@ -72,7 +75,7 @@ async function onMenuClicked(info, tab) {
     case 'reset-all-pinned':
       await resetAllPinnedTabs();
       break;
-    case 'repin-tab-to-current-url':
+    case 'repin-tab':
       await repinTab(tab);
       break;
   }
@@ -89,7 +92,7 @@ function createContextMenu() {
   });
 
   browser.menus.create({
-    id: 'repin-tab-to-current-url',
+    id: 'repin-tab',
     title: 'Repin Tab to Current URL',
     contexts: ['tab'],
   });
