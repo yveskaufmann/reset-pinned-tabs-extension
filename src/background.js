@@ -87,25 +87,31 @@ async function onMenuClicked(info, tab) {
 function createContextMenu() {
   browser.menus.create({
     id: 'reset-this-tab',
-    title: 'Reset This Tab',
+    title: 'Restore to Pinned URL',
     contexts: ['tab'],
   });
 
   browser.menus.create({
     id: 'repin-tab',
-    title: 'Repin Tab to Current URL',
+    title: 'Update Pinned URL to Current',
+    contexts: ['tab'],
+  });
+
+  browser.menus.create({
+    id: 'separator',
+    type: 'separator',
     contexts: ['tab'],
   });
 
   browser.menus.create({
     id: 'reset-all-pinned',
-    title: 'Reset All Pinned Tabs',
+    title: 'Restore All Pinned Tabs',
     contexts: ['tab'],
   });
 
   browser.menus.create({
     id: 'pin-tab',
-    title: 'Pin Tab',
+    title: 'Pinned',
     contexts: ['tab'],
     type: 'checkbox',
   });
