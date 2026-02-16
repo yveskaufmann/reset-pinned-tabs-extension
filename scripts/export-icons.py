@@ -19,7 +19,7 @@ gi.require_version('Gimp', '3.0')
 pdb = Gimp.get_pdb()
 cwd = os.getcwd()
 master_path = os.path.join(cwd, "icons/icon-master.xcf")
-sizes = [16, 32, 48, 128, 256, 512]
+sizes = [16, 32, 48, 64, 128, 256]
 
 # In GIMP 3, we load files using Gio
 input_file = Gio.File.new_for_path(master_path)
@@ -43,6 +43,13 @@ for size in sizes:
     config.set_property('file', output_file)
     config.set_property('compression', 9)
 
-    result = procedure.run(config)
+    config.set_property('bkgd', False)
+    config.set_property('time', False)
+    config.set_property('include-thumbnail', False)
+    config.set_property('save-transparent', True)
+    config.set_property('format', 'rgba8')
+    config.set_property('include-color-profile', False)
 
-    image.delete()
+result = procedure.run(config)
+
+image.delete()
