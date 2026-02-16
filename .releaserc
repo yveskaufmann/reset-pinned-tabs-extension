@@ -3,36 +3,34 @@
     "main"
   ],
   "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
     [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/npm",
-        {
-          "npmPublish": false
-        }
-      ],
-      [
-        "@semantic-release/exec",
-        {
-          "prepareCmd": "./scripts/release/prepare.sh ${nextRelease.version}"
-        }
-      ],
-      [
-        "@semantic-release/github",
-        {
-          "assets": [
-            {
-              "path": "dist/*.zip",
-              "label": "Unsigned Extension (marketplace upload)"
-            },
-            {
-              "path": "dist/*.xpi",
-              "label": "Signed Firefox Add-on (self-intall)"
-            }
-          ]
-        }
-      ]
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./scripts/release/prepare.sh ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "dist/*.zip",
+            "label": "Unsigned Extension (marketplace upload)"
+          },
+          {
+            "path": "dist/*.xpi",
+            "label": "Signed Firefox Add-on (self-intall)"
+          }
+        ]
+      }
     ]
   ],
   "preset": "conventionalcommits"
