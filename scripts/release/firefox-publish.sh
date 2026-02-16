@@ -7,7 +7,7 @@ if [[ -z "$AMO_API_KEY" || -z "$AMO_API_SECRET" ]]; then
   exit 1
 fi
 
-if [[ ! -f "dist/build" ]]; then
+if [[ ! -d "dist/build" ]]; then
   echo "Error: Build artifacts not found. Please run the prepare script first."
   exit 1
 fi
