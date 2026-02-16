@@ -1,13 +1,27 @@
 .SHELL := /usr/bin/env bash
 
-.PHONY: bundle
-bundle:
+.PHONY: build
+build:
 	@mkdir -p dist
-	zip -r dist/reset-pinned-tabs-extension.xpi manifest.json icons/*.png src/ README.md LICENSE
+	@rsync -a --relative --exclude=*.xcf  \
+		manifest.json \
+		src/ \
+		icons/ \
+		README.md LICENSE \
+		dist/build
+
+.PHONY: clean
+clean:
+	rm -rf dist
 
 .PHONY: lint
 lint:
 	npx web-ext lint --ignore-files scripts/** profiles/**
+
+.PHONY: bundle
+bundle: build
+	npx web-ext build --source-dir=dist/build --artifacts-dir=dist
+
 
 FIREFOX_PATH := /opt/firefox/firefox
 ifeq ($(shell uname -s),Darwin)
@@ -30,3 +44,4 @@ watch:
 .PHONY: icons
 icons:
 	scripts/export-icons.sh
+

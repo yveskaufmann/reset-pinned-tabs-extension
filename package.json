@@ -1,15 +1,24 @@
 {
   "name": "reset-pinned-tabs-extension",
   "version": "1.0.0",
+  "private": true,
   "description": "Pinned Tab Resetter — small open‑source WebExtension for Firefox that restores pinned tabs to their initial URLs on startup",
   "main": "src/background.js",
-  "keywords": ["browser-extension", "pinned-tabs", "tab-management"],
+  "keywords": [
+    "browser-extension",
+    "pinned-tabs",
+    "tab-management"
+  ],
   "homepage": "https://github.com/yveskaufmann/reset-pinned-tabs-extension",
   "author": "Yves Kaufmann",
   "license": "MIT",
   "type": "module",
   "devDependencies": {
     "@types/firefox-webext-browser": "^143.0.0",
-    "web-ext": "~9.3.0"
+    "web-ext": "~9.3.0",
+    "semantic-release": "~25.0.3",
+    "@semantic-release/exec": "~7.1.0",
+    "conventional-changelog-conventionalcommits": "~9.1.0",
+    "prettier": "~3.8.1"
   }
 }
