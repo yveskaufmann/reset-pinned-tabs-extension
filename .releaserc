@@ -14,7 +14,8 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "./scripts/release/prepare.sh ${nextRelease.version}"
+        "prepareCmd": "./scripts/release/prepare.sh ${nextRelease.version}",
+        "publishCmd": "echo new_release_published=true >> $GITHUB_OUTPUT; echo next_release_version=${nextRelease.version} >> $GITHUB_OUTPUT"
       }
     ],
     [
