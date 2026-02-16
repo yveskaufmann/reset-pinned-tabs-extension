@@ -10,7 +10,6 @@
   },
   "author": "Yves Kaufmann",
   "homepage_url": "https://github.com/yveskaufmann/reset-pinned-tabs-extension",
-  "license": "MIT",
 
   "icons": {
     "16": "icons/icon16.png",
