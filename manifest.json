@@ -19,8 +19,11 @@
     "128": "icons/icon128.png",
     "256": "icons/icon256.png"
   },
-
   "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    },
     "default_title": "Pinned Tab Resetter"
   },
 
