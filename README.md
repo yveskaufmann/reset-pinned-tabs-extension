@@ -24,6 +24,16 @@ It keeps pinned tabs as reliable shortcuts to important sites.
 - Reset a single tab or reset all pinned tabs via context menu.
 - Pin tabs per context menu or via the browser's built-in pinning feature; the extension will track and restore them.
 
+### Screenshots
+
+Control pinned tab via popup:
+
+[![Screenshot of pinned tabs popup with "Pinned Tabs control"](screenshots/popup.png)](screenshots/popup.png)
+
+Context menu for pinned tabs:
+
+[![Screenshot of pinned tab context menu](screenshots/context-menu.png)](screenshots/context-menu.png)
+
 ## Development requirements
 
 - [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/) installed at `/opt/firefox`
