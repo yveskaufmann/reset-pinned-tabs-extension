@@ -3,12 +3,13 @@
 .PHONY: build
 build:
 	@mkdir -p dist
+	npx vite build
 	@rsync -a --relative --exclude=*.xcf  \
 		manifest.json \
-		src/ \
 		icons/ \
 		README.md LICENSE \
 		dist/build
+
 
 .PHONY: clean
 clean:
@@ -36,6 +37,7 @@ watch:
 	fi; \
 	mkdir -p profiles/web-ext-dev; \
 	npx web-ext run \
+		--source-dir=dist/build --artifacts-dir=dist \
 		--firefox=$(FIREFOX_PATH) \
  		--keep-profile-changes --profile-create-if-missing --firefox-profile $(shell pwd)/profiles/web-ext-dev \
 		--devtools \
