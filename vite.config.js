@@ -26,8 +26,8 @@ export default defineConfig({
     outDir: 'dist/build',
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'src/tabsPopup.html'),
-        background: resolve(__dirname, 'src/background.js'),
+        popup: resolve(import.meta.dirname, 'src/tabsPopup.html'),
+        background: resolve(import.meta.dirname, 'src/background.js'),
       },
       output: {
         entryFileNames: 'src/[name].js',

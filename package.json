@@ -14,19 +14,19 @@
   "license": "MIT",
   "type": "module",
   "devDependencies": {
-    "@biomejs/biome": "2.6.4",
+    "@biomejs/biome": "~2.6.4",
     "@semantic-release/exec": "~7.1.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/firefox-webext-browser": "^143.0.0",
-    "@vitejs/plugin-vue": "^6.0.4",
-    "conventional-changelog-conventionalcommits": "~9.1.0",
-    "semantic-release": "~25.0.3",
-    "tailwindcss": "^4.1.18",
-    "vite": "^7.3.1",
-    "vite-plugin-static-copy": "^3.2.0",
-    "web-ext": "~9.3.0"
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/firefox-webext-browser": "^143.0.1",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "conventional-changelog-conventionalcommits": "~10.4.1",
+    "semantic-release": "~25.0.9",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.5",
+    "vite-plugin-static-copy": "^4.1.1",
+    "web-ext": "~10.8.0"
   },
   "dependencies": {
-    "vue": "^3.5.28"
+    "vue": "^3.5.44"
   }
 }
