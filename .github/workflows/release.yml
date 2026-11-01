@@ -40,8 +40,8 @@ jobs:
         # unsigned extension to AMO.
         continue-on-error: true
         env:
-          AMO_API_KEY: ${{ secrets.AMO_API_KEY }}
-          AMO_API_SECRET: ${{ secrets.AMO_API_SECRET }}
+          WEB_EXT_API_KEY: ${{ secrets.AMO_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.AMO_API_SECRET }}
         run: |
           ./scripts/release/firefox-publish.sh
           gh release upload ${{ steps.semantic-release.outputs.next_release_version }} dist/*.xpi --clobber
