@@ -9,7 +9,7 @@ echo "Updating manifest.json with version $VERSION"
 jq --arg version "$VERSION" '.version = $version' \
   manifest.json > manifest.json.tmp
 mv manifest.json.tmp manifest.json
-npx prettier --write manifest.json
+npx biome format --write manifest.json
 
 # Create build artifacts
 make clean bundle
