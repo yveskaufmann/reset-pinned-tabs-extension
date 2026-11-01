@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite';
+import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
+import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-
-import { resolve } from 'path';
 
 export default defineConfig({
   plugins: [
@@ -27,7 +26,7 @@ export default defineConfig({
     outDir: 'dist/build',
     rollupOptions: {
       input: {
-        popup: resolve(__dirname, 'src/popup.html'),
+        popup: resolve(__dirname, 'src/tabsPopup.html'),
         background: resolve(__dirname, 'src/background.js'),
       },
       output: {

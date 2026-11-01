@@ -1,15 +1,15 @@
 import './pollyfill.js';
 
+import { isFirefox } from './browser-detection.js';
 import {
+  getPinnedURL,
   repinTab,
   resetAllPinnedTabs,
   resetTab,
+  setPinnedURL,
   syncPinnedTabsState,
   toggleTabPin,
-  getPinnedURL,
-  setPinnedURL,
 } from './tabManagement.js';
-import { isFirefox } from './browser-detection.js';
 
 /**
  * Handle the tab updates to intercept when a user pins or unpins a tab.
@@ -35,11 +35,11 @@ async function onTabUpdate(tabId, changeInfo, tab) {
  * Populate the context menu state based on the current tab's pinned status and stored original URL,
  * will be triggered when the context menu is shown.
  *
- * @param {*} info
+ * @param {*} _info
  * @param {*} tab
  * @returns
  */
-async function onMenuShown(info, tab) {
+async function onMenuShown(_info, tab) {
   if (!tab) {
     browser.menus.refresh();
     return;

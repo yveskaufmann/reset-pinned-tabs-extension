@@ -1,20 +1,18 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { getPinnedTabs, resetTab, toggleTabPin, resetAllPinnedTabs, repinTab } from './tabManagement.js';
-
-import SkeletonLoader from './components/SkeletonLoader.vue';
+import { onMounted, ref } from 'vue';
 import AppActionButton from './components/AppActionButton.vue';
-
-import IconUnpin from './components/icons/IconUnpin.vue';
 import IconRepin from './components/icons/IconRepin.vue';
 import IconRestore from './components/icons/IconRestore.vue';
 
+import IconUnpin from './components/icons/IconUnpin.vue';
+import SkeletonLoader from './components/SkeletonLoader.vue';
+import { getPinnedTabs, repinTab, resetAllPinnedTabs, resetTab, toggleTabPin } from './tabManagement.js';
 
 const pinnedTabs = ref([]);
 const isLoading = ref(true);
 
 onMounted(async () => {
-  console.info("Popup mounted, fetching pinned tabs...");
+  console.info('Popup mounted, fetching pinned tabs...');
   await refreshPinnedTabs();
 });
 
@@ -23,40 +21,38 @@ async function refreshPinnedTabs() {
   pinnedTabs.value = [];
   try {
     const tabs = await getPinnedTabs();
-    console.log("Received pinned tabs:", tabs);
+    console.log('Received pinned tabs:', tabs);
     pinnedTabs.value = tabs || [];
   } catch (error) {
-    console.error("Failed to fetch pinned tabs:", error);
+    console.error('Failed to fetch pinned tabs:', error);
   } finally {
     isLoading.value = false;
   }
 }
 
 async function onRestoreTabClick(tab) {
-  console.log("Restoring tab:", tab.id);
+  console.log('Restoring tab:', tab.id);
   await resetTab(tab.id);
   await refreshPinnedTabs();
 }
 
 async function onUnpinTabClick(tab) {
-  console.log("Unpinning tab:", tab.id);
+  console.log('Unpinning tab:', tab.id);
   await toggleTabPin(tab.id, false);
   await refreshPinnedTabs();
 }
 
 async function onRepinTabClick(tab) {
-  console.log("Re-pinning tab with current URL:", tab.id);
+  console.log('Re-pinning tab with current URL:', tab.id);
   await repinTab(tab.id);
   await refreshPinnedTabs();
 }
 
 async function onRestoreAllTabsClick() {
-  console.log("Restoring all pinned tabs");
+  console.log('Restoring all pinned tabs');
   await resetAllPinnedTabs();
   await refreshPinnedTabs();
 }
-
-
 </script>
 
 <template>

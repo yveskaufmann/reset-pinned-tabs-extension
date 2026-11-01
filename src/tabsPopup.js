@@ -1,6 +1,6 @@
 import './pollyfill.js';
 import { createApp } from 'vue';
-import App from './popup.vue';
+import TabsPopup from './tabsPopup.vue';
 import './style.css'; // Hier liegen deine Tailwind @tailwind directives
 
-createApp(App).mount('#app');
+createApp(TabsPopup).mount('#app');

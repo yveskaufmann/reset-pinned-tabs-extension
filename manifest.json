@@ -26,7 +26,7 @@
       "32": "icons/icon32.png"
     },
     "default_title": "Pinned Tab Resetter",
-    "default_popup": "src/popup.html"
+    "default_popup": "src/tabsPopup.html"
   },
 
   "browser_specific_settings": {

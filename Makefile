@@ -10,13 +10,13 @@ build:
 		README.md LICENSE \
 		dist/build
 
-
 .PHONY: clean
 clean:
 	rm -rf dist
 
 .PHONY: lint
 lint:
+	npx biome check --write
 	npx web-ext lint --ignore-files scripts/** profiles/**
 
 .PHONY: bundle
