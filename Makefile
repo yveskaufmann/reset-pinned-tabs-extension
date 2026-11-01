@@ -19,6 +19,10 @@ lint:
 	npx biome check --write
 	npx web-ext lint --ignore-files scripts/** profiles/**
 
+.PHONY: test
+test:
+	npx vitest run
+
 .PHONY: bundle
 bundle: build
 	npx web-ext build --source-dir=dist/build --artifacts-dir=dist
@@ -46,4 +50,3 @@ watch:
 .PHONY: icons
 icons:
 	scripts/export-icons.sh
-

@@ -1,13 +1,15 @@
 export function isChrome() {
-  if (typeof chrome !== 'undefined' && typeof chrome.runtime !== 'undefined') {
+  const runtime = globalThis.chrome?.runtime;
+  if (!runtime || typeof runtime.getURL !== 'function') {
     return false;
   }
-  return chrome.runtime.getURL('').startsWith('chrome-extension://');
+  return runtime.getURL('').startsWith('chrome-extension://');
 }
 
 export function isFirefox() {
-  if (typeof browser !== 'undefined' && typeof browser.runtime !== 'undefined') {
+  const runtime = globalThis.browser?.runtime;
+  if (!runtime || typeof runtime.getURL !== 'function') {
     return false;
   }
-  return browser.runtime.getURL('').startsWith('moz-extension://');
+  return runtime.getURL('').startsWith('moz-extension://');
 }

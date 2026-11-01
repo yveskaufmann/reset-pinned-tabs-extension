@@ -63,6 +63,9 @@ make bundle
 # Lint the extension against WebExtension best practices and common issues
 make lint
 
+# Run unit tests
+make test
+
 # Export icons in different sizes from the GIMP source file (requires GIMP)
 make icons
 ```
