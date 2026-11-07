@@ -1,7 +1,7 @@
 # Pinned Tab Resetter — small open‑source Firefox WebExtension that restores pinned tabs to their initial URLs on startup
 
 Restore pinned tabs to their initially opened URLs on browser startup or
-on demand via the context menu.
+on demand via the popup or the context menu.
 
 ## Installation
 
@@ -11,7 +11,7 @@ Download and install the extension from the [Mozilla Add-ons page](https://addon
 
 ## Usage
 
-Install the extension (see below) and pin some tabs. The extension will automatically restore their original URLs on browser startup. You can also reset individual pinned tabs by selecting “Reset Pinned Tab” from the tab's context menu, or reset all pinned tabs at once via the “Reset All Pinned Tabs” option.
+Install the extension (see below) and pin some tabs. The extension will automatically restore their original URLs on browser startup. You can also reset individual pinned tabs from the popup or from the tab's context menu, and reset all pinned tabs at once from the popup. Use the popup settings to choose whether a reset should also unload the tab afterward.
 
 ### Motivation & features
 
@@ -21,7 +21,8 @@ I liked Zen Browser's pinned‑tab shortcuts and wanted to replicate that behavi
 It keeps pinned tabs as reliable shortcuts to important sites.
 
 - Automatic restore of pinned tabs to their initial URLs on browser startup.
-- Reset a single tab or reset all pinned tabs via context menu.
+- Reset a single tab or reset all pinned tabs from the popup or context menu.
+- Toggle whether reset actions should also unload the tab afterward.
 - Pin tabs per context menu or via the browser's built-in pinning feature; the extension will track and restore them.
 
 ### Screenshots
@@ -33,6 +34,17 @@ Control pinned tab via popup:
 Context menu for pinned tabs:
 
 [![Screenshot of pinned tab context menu](screenshots/context-menu.png)](screenshots/context-menu.png)
+
+## Popup settings
+
+The popup includes a small settings panel with a single toggle:
+
+- Unload tabs after reset
+
+When enabled, resetting a pinned tab will restore its original URL and then discard the tab to free memory. When disabled, the tab is restored without being unloaded.
+
+> [!NOTE]
+> This unload behavior follows Firefox's tab unloading semantics, but it does not render the tab in Firefox's native greyed-out unloaded style. The tab is unloaded functionally, not visually styled like the built-in Firefox state.
 
 ## Development requirements
 

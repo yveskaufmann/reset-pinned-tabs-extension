@@ -1,4 +1,16 @@
 const ORG_URL_KEY = 'originalUrl';
+const SHOULD_UNLOAD_RESETTABS_KEY = 'shouldUnloadResetTabs';
+
+export async function getShouldUnloadResetTabs() {
+  const result = await browser.storage.local.get(SHOULD_UNLOAD_RESETTABS_KEY);
+  return !!result[SHOULD_UNLOAD_RESETTABS_KEY];
+}
+
+export async function setShouldUnloadResetTabs(value) {
+  await browser.storage.local.set({
+    [SHOULD_UNLOAD_RESETTABS_KEY]: !!value,
+  });
+}
 
 /**
  * Sync the state of all pinned tabs on startup or installation.
@@ -54,6 +66,14 @@ export async function resetTab(tab) {
   if (url && tab.url !== url) {
     await browser.tabs.update(tab.id, { url });
     console.log(`Reset tab ${tab.id} to Home URL: ${url}`);
+  }
+
+  const shouldUnloadResettedTabs = await getShouldUnloadResetTabs();
+
+  // Unload the tab if it was reset and the option is enabled.
+  if (shouldUnloadResettedTabs) {
+    await browser.tabs.discard(tab.id);
+    console.log(`Discarded tab ${tab.id} after resetting it to Home URL`);
   }
 }
 
