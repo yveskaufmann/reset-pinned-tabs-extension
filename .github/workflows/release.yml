@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  bump-version:
+  release-firefox-ext:
     permissions:
       contents: write
       issues: write
@@ -42,6 +42,7 @@ jobs:
         env:
           WEB_EXT_API_KEY: ${{ secrets.AMO_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.AMO_API_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./scripts/release/publish-ext.sh
           gh release upload ${{ steps.semantic-release.outputs.next_release_version }} dist/*.xpi --clobber
