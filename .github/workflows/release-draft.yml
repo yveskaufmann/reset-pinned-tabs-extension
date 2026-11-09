@@ -1,0 +1,35 @@
+name: Release Draft
+run-name: Release Draft
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: release-extension
+  cancel-in-progress: false
+
+jobs:
+  create-release-draft:
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 #v6.2.0
+        with:
+          node-version-file: .nvmrc
+
+      - run: npm ci
+
+      - name: Determine release + build artifacts
+        run: npx semantic-release
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

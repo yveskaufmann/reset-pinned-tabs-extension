@@ -97,6 +97,11 @@ make icons
   1. Run `make bundle` to produce `reset-pinned-tabs-extension.xpi`
   2. Install via `about:addons` → “Install Add-on From File” or drag-and-drop the `.xpi` file
 
+## Release
+
+- Run the manual **Release Draft** workflow to create a draft GitHub release with the unsigned extension and AMO metadata.
+- The **Release Publish** workflow then signs and uploads the extension; if AMO review fails or is delayed, rerun it manually with the same tag.
+
 ## License
 
 This project is available under the MIT License — see [LICENSE](LICENSE).

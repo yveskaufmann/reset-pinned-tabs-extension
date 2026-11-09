@@ -13,20 +13,21 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "./scripts/release/prepare.sh --version \"${nextRelease.version}\" --changelog \"${nextRelease.notes}\"",
-        "publishCmd": "echo new_release_published=true >> $GITHUB_OUTPUT; echo next_release_version=${nextRelease.version} >> $GITHUB_OUTPUT"
+        "publishCmd": "echo new_release_published=true >> $GITHUB_OUTPUT; echo next_release_version=${nextRelease.version} >> $GITHUB_OUTPUT; echo next_release_tag=${nextRelease.gitTag} >> $GITHUB_OUTPUT"
       }
     ],
     [
       "@semantic-release/github",
       {
+        "draftRelease": true,
         "assets": [
           {
             "path": "dist/*.zip",
             "label": "Unsigned Extension (marketplace upload)"
           },
           {
-            "path": "dist/*.xpi",
-            "label": "Signed Firefox Add-on (self-intall)"
+            "path": "dist/release-meta.json",
+            "label": "AMO release metadata"
           }
         ]
       }
