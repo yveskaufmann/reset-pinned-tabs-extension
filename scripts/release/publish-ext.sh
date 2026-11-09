@@ -2,9 +2,6 @@
 
 set -eo pipefail
 
-
-
-
 function usage() {
   local prog="$(basename "$0")"
 
@@ -53,7 +50,7 @@ function publish_ext_to_mozilla_marketplace() {
     --channel=listed \
     --source-dir=dist/build \
     --artifacts-dir=dist/ \
-    --metadata=dist/release-meta.json
+    --amo-metadata=dist/release-meta.json
 
   if [[ $? -eq 0 ]]; then
     echo "🪀  Successfully published version $VERSION to Mozilla Marketplace."
