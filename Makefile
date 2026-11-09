@@ -6,7 +6,6 @@ build:
 	npx vite build
 	@rsync -a --relative --exclude=*.xcf  \
 		manifest.json \
-		icons/ \
 		README.md LICENSE \
 		dist/build
 
