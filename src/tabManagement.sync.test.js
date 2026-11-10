@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { compareSyncRecords, getSyncEnabled, setSyncEnabled } from './tabManagement.js';
+import { compareSyncRecords, getSyncEnabled, setSyncEnabled } from './tabSyncManagement.js';
 
 const localStore = new Map();
 
