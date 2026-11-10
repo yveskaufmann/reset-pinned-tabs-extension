@@ -3,12 +3,6 @@ import './pollyfill.js';
 import { isFirefox } from './browser-detection.js';
 import {
   getPinnedURL,
-  getSyncEnabled,
-  handleManagedTabPinned,
-  handleManagedTabRemoved,
-  handleManagedTabUnpinned,
-  handleSyncStorageChanged,
-  reconcileSyncedState,
   repinTab,
   resetAllPinnedTabs,
   resetTab,
@@ -16,6 +10,14 @@ import {
   syncPinnedTabsState,
   toggleTabPin,
 } from './tabManagement.js';
+import {
+  getSyncEnabled,
+  handleManagedTabPinned,
+  handleManagedTabRemoved,
+  handleManagedTabUnpinned,
+  handleSyncStorageChanged,
+  reconcileSyncedState,
+} from './tabSyncManagement.js';
 
 /**
  * Handle the tab updates to intercept when a user pins or unpins a tab.

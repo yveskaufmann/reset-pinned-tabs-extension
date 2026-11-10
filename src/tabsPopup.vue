@@ -10,14 +10,13 @@ import SkeletonLoader from './components/SkeletonLoader.vue';
 import {
   getPinnedTabs,
   getShouldUnloadResetTabs,
-  getSyncEnabled,
   repinTab,
   resetAllPinnedTabs,
   resetTab,
   setShouldUnloadResetTabs,
-  setSyncEnabled,
   toggleTabPin,
 } from './tabManagement.js';
+import { getSyncEnabled, setSyncEnabled } from './tabSyncManagement.js';
 
 const pinnedTabs = ref([]);
 const isLoading = ref(true);
