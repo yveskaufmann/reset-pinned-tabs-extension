@@ -23,6 +23,7 @@ It keeps pinned tabs as reliable shortcuts to important sites.
 - Automatic restore of pinned tabs to their initial URLs on browser startup.
 - Reset a single tab or reset all pinned tabs from the popup or context menu.
 - Toggle whether reset actions should also unload the tab afterward.
+- Optional Firefox Sync support for managed pinned-tab metadata (disabled by default).
 - Pin tabs per context menu or via the browser's built-in pinning feature; the extension will track and restore them.
 
 ### Screenshots
@@ -40,8 +41,11 @@ Context menu for pinned tabs:
 The popup includes a small settings panel with a single toggle:
 
 - Unload tabs after reset
+- Enable sync
 
 When enabled, resetting a pinned tab will restore its original URL and then discard the tab to free memory. When disabled, the tab is restored without being unloaded.
+
+When **Enable sync** is turned on, managed pinned-tab metadata is synchronized via Firefox Sync (`storage.sync`). Sync is conservative: it prefers no-op on ambiguous matches and uses stable tab UUIDs instead of URL-only identity.
 
 > [!NOTE]
 > This unload behavior follows Firefox's tab unloading semantics, but it does not render the tab in Firefox's native greyed-out unloaded style. The tab is unloaded functionally, not visually styled like the built-in Firefox state.

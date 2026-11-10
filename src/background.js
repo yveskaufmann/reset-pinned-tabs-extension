@@ -3,6 +3,12 @@ import './pollyfill.js';
 import { isFirefox } from './browser-detection.js';
 import {
   getPinnedURL,
+  getSyncEnabled,
+  handleManagedTabPinned,
+  handleManagedTabRemoved,
+  handleManagedTabUnpinned,
+  handleSyncStorageChanged,
+  reconcileSyncedState,
   repinTab,
   resetAllPinnedTabs,
   resetTab,
@@ -25,9 +31,13 @@ async function onTabUpdate(tabId, changeInfo, tab) {
     const existing = await getPinnedURL(tabId);
     if (existing) {
       console.log(`Tab ${tabId} is already pinned with Home URL: ${existing}`);
+      await handleManagedTabPinned(tab);
       return;
     }
     await setPinnedURL(tabId, tab.url);
+    await handleManagedTabPinned(tab);
+  } else if (changeInfo.pinned === false) {
+    await handleManagedTabUnpinned(tab);
   }
 }
 
@@ -131,6 +141,9 @@ function createContextMenu() {
 async function onInstalled() {
   createContextMenu();
   await syncPinnedTabsState();
+  if (await getSyncEnabled()) {
+    await reconcileSyncedState();
+  }
 }
 
 /**
@@ -138,10 +151,19 @@ async function onInstalled() {
  */
 async function onStartup() {
   await syncPinnedTabsState();
+  if (await getSyncEnabled()) {
+    await reconcileSyncedState();
+  }
+}
+
+async function onTabRemoved(tabId) {
+  await handleManagedTabRemoved(tabId);
 }
 
 browser.runtime.onInstalled.addListener(onInstalled);
 browser.runtime.onStartup.addListener(onStartup);
 browser.tabs.onUpdated.addListener(onTabUpdate);
+browser.tabs.onRemoved.addListener(onTabRemoved);
+browser.storage.onChanged.addListener(handleSyncStorageChanged);
 browser.contextMenus.onClicked.addListener(onMenuClicked);
 browser.contextMenus?.onShown?.addListener(onMenuShown);

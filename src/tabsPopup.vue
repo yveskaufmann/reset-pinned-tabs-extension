@@ -10,21 +10,25 @@ import SkeletonLoader from './components/SkeletonLoader.vue';
 import {
   getPinnedTabs,
   getShouldUnloadResetTabs,
+  getSyncEnabled,
   repinTab,
   resetAllPinnedTabs,
   resetTab,
   setShouldUnloadResetTabs,
+  setSyncEnabled,
   toggleTabPin,
 } from './tabManagement.js';
 
 const pinnedTabs = ref([]);
 const isLoading = ref(true);
 const shouldUnloadResetTabs = ref(false);
+const syncEnabled = ref(false);
 const settingsOpen = ref(false);
 
 onMounted(async () => {
   console.info('Popup mounted, fetching pinned tabs...');
   shouldUnloadResetTabs.value = await getShouldUnloadResetTabs();
+  syncEnabled.value = await getSyncEnabled();
   await refreshPinnedTabs();
 });
 
@@ -75,6 +79,12 @@ async function onUnloadAfterResetToggle(event) {
   shouldUnloadResetTabs.value = checked;
   await setShouldUnloadResetTabs(checked);
 }
+
+async function onSyncEnabledToggle(event) {
+  const checked = event.target.checked;
+  syncEnabled.value = checked;
+  await setSyncEnabled(checked);
+}
 </script>
 
 <template>
@@ -106,6 +116,18 @@ async function onUnloadAfterResetToggle(event) {
         <label class="flex items-center gap-2 text-sm text-gray-700">
           <input type="checkbox" :checked="shouldUnloadResetTabs" @change="onUnloadAfterResetToggle" />
           <span>Unload tabs after reset</span>
+        </label>
+      </div>
+
+      <div class="mt-3 flex items-center justify-between gap-3 border-t border-gray-100 pt-3">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-gray-600">Sync</p>
+          <p class="text-xs text-gray-500">Sync managed pinned tabs across Firefox devices.</p>
+        </div>
+
+        <label class="flex items-center gap-2 text-sm text-gray-700">
+          <input type="checkbox" :checked="syncEnabled" @change="onSyncEnabledToggle" />
+          <span>Enable sync</span>
         </label>
       </div>
     </div>
