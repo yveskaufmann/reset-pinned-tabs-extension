@@ -1,4 +1,6 @@
-const ORG_URL_KEY = 'originalUrl';
+import { getPinnedURL, resolveTab, setPinnedURL } from './tabMetadata.js';
+import { handleManagedTabPinned } from './tabSyncManagement.js';
+
 const SHOULD_UNLOAD_RESETTABS_KEY = 'shouldUnloadResetTabs';
 
 export async function getShouldUnloadResetTabs() {
@@ -22,23 +24,23 @@ export async function setShouldUnloadResetTabs(value) {
 export async function syncPinnedTabsState() {
   const pinnedTabs = await browser.tabs.query({ pinned: true });
   for (const tab of pinnedTabs) {
-    // When a pinned tab had no original URL set, we set it to the current URL
     const existing = await getPinnedURL(tab.id);
     if (!existing) {
-      // If no original URL is set, we set it to the current URL
       await setPinnedURL(tab.id, tab.url);
+      await handleManagedTabPinned(tab, { writeSync: false });
       console.log(`Saved Home URL: ${tab.url}`);
-      continue; // No need to discard if we just set the original URL
+      continue;
     }
 
     await browser.tabs.discard(tab.id);
     console.log(`Discarded tab ${tab.id} to reset it to Home URL`);
 
     if (existing && existing !== tab.url) {
-      // If an original URL is set but doesn't match the current URL, we reset it
       await browser.tabs.update(tab.id, { url: existing });
       console.log(`Reset tab ${tab.id} to Home URL: ${existing}`);
     }
+
+    await handleManagedTabPinned(tab, { writeSync: false });
   }
 }
 
@@ -49,12 +51,10 @@ export async function syncPinnedTabsState() {
  * @returns
  */
 export async function resetTab(tab) {
-  if (typeof tab === 'number') {
-    tab = await browser.tabs.get(tab);
-    if (!tab) {
-      console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
-      return;
-    }
+  tab = await resolveTab(tab);
+  if (!tab) {
+    console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
+    return;
   }
 
   if (!tab?.pinned) {
@@ -69,8 +69,6 @@ export async function resetTab(tab) {
   }
 
   const shouldUnloadResettedTabs = await getShouldUnloadResetTabs();
-
-  // Unload the tab if it was reset and the option is enabled.
   if (shouldUnloadResettedTabs) {
     await browser.tabs.discard(tab.id);
     console.log(`Discarded tab ${tab.id} after resetting it to Home URL`);
@@ -84,12 +82,10 @@ export async function resetTab(tab) {
  * @returns Promise<void>
  */
 export async function repinTab(tab) {
-  if (typeof tab === 'number') {
-    tab = await browser.tabs.get(tab);
-    if (!tab) {
-      console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
-      return;
-    }
+  tab = await resolveTab(tab);
+  if (!tab) {
+    console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
+    return;
   }
 
   if (!tab?.pinned) {
@@ -98,6 +94,7 @@ export async function repinTab(tab) {
   }
 
   await setPinnedURL(tab.id, tab.url);
+  await handleManagedTabPinned(tab);
   console.log(`Repinned tab ${tab.id} to new Home URL: ${tab.url}`);
 }
 
@@ -121,12 +118,10 @@ export async function resetAllPinnedTabs() {
  * @returns
  */
 export async function toggleTabPin(tab, pinned) {
-  if (typeof tab === 'number') {
-    tab = await browser.tabs.get(tab);
-    if (!tab) {
-      console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
-      return;
-    }
+  tab = await resolveTab(tab);
+  if (!tab) {
+    console.log(`Tab ${tab} is not pinned or does not exist. No action taken.`);
+    return;
   }
 
   if (tab.pinned === pinned) {
@@ -139,7 +134,6 @@ export async function toggleTabPin(tab, pinned) {
 
 export async function getPinnedTabs() {
   const pinnedTabs = await browser.tabs.query({ pinned: true });
-
   const tabs = pinnedTabs.map((tab) => ({
     id: tab.id,
     url: tab.url,
@@ -156,35 +150,4 @@ export async function getPinnedTabs() {
   return tabs;
 }
 
-/**
- * Get the pinned url of pinned tab by its id.
- *
- * @param {*} tabId
- *
- * @returns Promise<string> The pinned URL of the tab, or null if not set.
- */
-export async function getPinnedURL(tabId) {
-  if (typeof browser?.sessions?.getTabValue === 'function') {
-    return browser.sessions.getTabValue(tabId, ORG_URL_KEY);
-  }
-  // Fallback for Chrome
-  const result = await browser.storage.session.get(`${ORG_URL_KEY}_${tabId}`);
-  return result ? result[`${ORG_URL_KEY}_${tabId}`] : null;
-}
-
-/**
- * Set the pinned url of pinned tab by its id.
- *
- * @param {*} tabId
- * @param {*} url
- * @return Promise<void>
- */
-export async function setPinnedURL(tabId, url) {
-  if (typeof browser?.sessions?.setTabValue === 'function') {
-    await browser.sessions.setTabValue(tabId, ORG_URL_KEY, url);
-  } else {
-    // Fallback for Chrome
-    await browser.storage.session.set({ [`${ORG_URL_KEY}_${tabId}`]: url });
-  }
-  console.log(`Updated Home URL for tab ${tabId} to: ${url}`);
-}
+export { getPinnedURL, setPinnedURL } from './tabMetadata.js';
