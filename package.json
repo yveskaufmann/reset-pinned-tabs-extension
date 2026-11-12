@@ -22,7 +22,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@types/firefox-webext-browser": "^143.0.1",
     "@vitejs/plugin-vue": "^6.0.10",
-    "conventional-changelog-conventionalcommits": "~9",
+    "conventional-changelog-conventionalcommits": "~10",
     "semantic-release": "~25.0.9",
     "tailwindcss": "^4.3.5",
     "vitest": "^5.1.0",
